@@ -41,9 +41,16 @@ bool die_bool = false;
         if (curhp <= 0)
         {
             if(GameObject.Find("Canvas").GetComponent<GameManager>().respon_lv==true){
+                
+do{
 curhp=maxhp/2;
 user_hp.value = (float)curhp / (float)maxhp; // 현재 체력을 슬라이더에 반영
+GameObject.Find("Canvas").GetComponent<GameManager>().respon_lv=false;
+}while(GameObject.Find("Canvas").GetComponent<GameManager>().respon_lv==true);
+          
+
             }else{
+                
                      string savedData = comScript.scoretext.text; // com 스크립트에서 텍스트 가져오기
 
             GameObject bestTextObject = GameObject.Find("BestText"); // "BestText" 오브젝트 찾기

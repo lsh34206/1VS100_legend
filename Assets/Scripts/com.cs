@@ -117,9 +117,11 @@ public AudioSource zun_music;
 public void shop_exit(){
      shop_music.Stop();
      zun_music.Play();
+       GameObject.Find("Canvas").GetComponent<GameManager>().key_move_bool = true;
 }
 
 public void shop_visit(){
+      GameObject.Find("Canvas").GetComponent<GameManager>().key_move_bool = false;
      shop_music.Play();
      zun_music.Stop();
 shop_pop.SetActive(true);
@@ -342,9 +344,10 @@ shop_exit();
             if(currentscore%5==0){
 shop_pop.SetActive(true);
 shop_visit();
-
+  GameObject.Find("Canvas").GetComponent<GameManager>().key_move_bool = false;
             }
             stage_fan();
+          
             G += 100+currentscore*8;
             audioSource.clip=audioClip_die;
             audioSource.Play();
