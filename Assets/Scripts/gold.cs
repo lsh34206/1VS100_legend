@@ -11,19 +11,16 @@ public class gold : MonoBehaviour
     private bool isInsideBox = false; // ���� �ȿ� �ִ��� ����
     private bool BoxCenter = false; // ���� �߾ӿ� �ִ��� ����
 
-    private float moveSpeed = 10f; // �̵� �ӵ�
+    private float moveSpeed = 20f; // �̵� �ӵ�
     private float wait_time = 3f; // ��� �ð�
     private float minus_time = 0f; // �ð� ����
     public void time_down_func()
     {
-        wait_time = 3f;
         for (int i = 0; i <= GameObject.Find("Center").GetComponent<TimerBar>().time_down_count; i += 5)
         {
-            if (wait_time >= 0.7f|| moveSpeed>=3.5f || GameObject.Find("Spawner").GetComponent<spawner>().currentCoolTime<= 2.5f)
+            if (wait_time >= 0.5f|| moveSpeed>=3.5f || GameObject.Find("Spawner").GetComponent<spawner>().currentCoolTime<= 0.25f)
             {
                 wait_time-= 0.2f;
-          
-                GameObject.Find("Spawner").GetComponent<spawner>().currentCoolTime += 0.125f;
             }
             else
             {
@@ -99,15 +96,13 @@ public class gold : MonoBehaviour
         if (isInsideBox && Input.GetKeyDown(KeyCode.G))
         {
             GameObject.Find("Canvas").GetComponent<GameManager>().key_move_bool = true;
-        GameObject.Find("Com").GetComponent<com>().G+=50;
-                  GameObject.Find("Com").GetComponent<com>().txtload();
-                   Destroy(gameObject);
-                timerScript.OnDestroy();
+            
             if (boxCollider.bounds.Contains(itemCollider.bounds.min) && boxCollider.bounds.Contains(itemCollider.bounds.max))
             {
-       
-
-               
+                GameObject.Find("Com").GetComponent<com>().G+=50;
+                GameObject.Find("Com").GetComponent<com>().txtload();
+                Destroy(gameObject);
+                timerScript.OnDestroy();
             }
         }
        

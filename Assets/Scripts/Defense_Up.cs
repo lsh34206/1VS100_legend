@@ -8,22 +8,19 @@ public class Defense_Up : MonoBehaviour
     private user userScript;
     private TimerBar timerScript;
 
-    private bool isInsideBox = false; // ���� �ȿ� �ִ��� ����
-    private bool BoxCenter = false; // ���� �߾ӿ� �ִ��� ����
+    private bool isInsideBox = false;
+    private bool BoxCenter = false;
 
-    private float moveSpeed = 10f; // �̵� �ӵ�
-    private float wait_time = 3f; // ��� �ð�
-    private float minus_time = 0f; // �ð� ����
+    private float moveSpeed = 20f;
+    private float wait_time = 3f;
+    private float minus_time = 0f;
     public void time_down_func()
     {
-        wait_time = 3f;
         for (int i = 0; i <= GameObject.Find("Center").GetComponent<TimerBar>().time_down_count; i += 5)
         {
-            if (wait_time >= 0.7f|| moveSpeed>=3.5f || GameObject.Find("Spawner").GetComponent<spawner>().currentCoolTime<= 2.5f)
+            if (wait_time >= 0.5f|| moveSpeed>=3.5f || GameObject.Find("Spawner").GetComponent<spawner>().currentCoolTime<= 0.25f)
             {
                 wait_time-= 0.2f;
-          
-                GameObject.Find("Spawner").GetComponent<spawner>().currentCoolTime += 0.125f;
             }
             else
             {
@@ -55,14 +52,12 @@ public class Defense_Up : MonoBehaviour
     {
         if (collision.CompareTag("Box"))
         {
-            isInsideBox = true; // ���� �ȿ� ��
-            transform.position = new Vector3(6f, -3.25f, 0f);
+            isInsideBox = true;
         }
         else if (collision.CompareTag("Center"))
         {
-            // Ű �̵� ���θ� false�� �����Ͽ� ��� ����
             GameObject.Find("Canvas").GetComponent<GameManager>().key_move_bool = false;
-            Invoke("waiting", wait_time - minus_time); // ������ ��� �ð� ���Ŀ� waiting �Լ� ȣ��
+            Invoke("waiting", wait_time - minus_time);
         }
     }
 
@@ -70,13 +65,13 @@ public class Defense_Up : MonoBehaviour
     {
         if (collision.CompareTag("Box"))
         {
-            isInsideBox = false; // ���ڿ��� ����
+            isInsideBox = false;
         }
         else if (collision.CompareTag("Center"))
         {
-            BoxCenter = false; // �߾ӿ��� ����
+            BoxCenter = false;
         }
-         Destroy(gameObject);
+        Destroy(gameObject);
     }
 
     private void Update()
@@ -86,12 +81,10 @@ public class Defense_Up : MonoBehaviour
 
         if (GameObject.Find("Canvas").GetComponent<GameManager>().key_move_bool == false)
         {
-            // ������Ʈ�� ���� �ȿ� �����Ƿ� �̵��� ����
-            // ������Ʈ�� ���� �ȿ� ���� �� �߰����� �ڵ带 ���� �� ����
+            
         }
         else
         {
-            // ������Ʈ�� ���� �ȿ� �����Ƿ� ���ʿ��� ���������� ������ �ӵ��� �̵�
             Vector3 newPosition = transform.position + Vector3.right * moveSpeed * Time.deltaTime;
             transform.position = newPosition;
         }
@@ -102,8 +95,8 @@ public class Defense_Up : MonoBehaviour
 
             if (boxCollider.bounds.Contains(itemCollider.bounds.min) && boxCollider.bounds.Contains(itemCollider.bounds.max))
             {
-                // �ִϸ��̼� ����
-
+                comScript.Defense(0);
+                
                 Destroy(gameObject);
                 timerScript.OnDestroy();
             }

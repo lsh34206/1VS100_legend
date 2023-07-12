@@ -11,30 +11,33 @@ public class spawner : MonoBehaviour
     }
 
     public SpawnableObject[] objectsToSpawn; // 생성할 오브젝트 배열
-    public float currentCoolTime = 1f; // 현재 쿨타임
+    public float currentCoolTime = 0.25f; // 현재 쿨타임
 
     private float coolTime; // 쿨타임
     private float timer; // 타이머
-public GameObject G_obj;
+
     private void Start()
     {
-        currentCoolTime = 0.5f;
+        currentCoolTime = 0.1f;
         coolTime = currentCoolTime;
         timer = coolTime;
     }
 
-public void speed_fan(){
-    if(GameObject.Find("Canvas").GetComponent<GameManager>().slow_lv=true){
-              currentCoolTime = 0.7f;
-        coolTime = currentCoolTime;
-        timer = coolTime;
-    }else{
-    currentCoolTime = 0.5f;
-        coolTime = currentCoolTime;
-        timer = coolTime;
+    public void speed_fan()
+    {
+        if (GameObject.Find("Canvas").GetComponent<GameManager>().slow_lv = true)
+        {
+            currentCoolTime = 0.5f;
+            coolTime = currentCoolTime;
+            timer = coolTime;
+        }
+        else
+        {
+            currentCoolTime = 0.5f;
+            coolTime = currentCoolTime;
+            timer = coolTime;
+        }
     }
-    
-}
 
     private void Update()
     {
@@ -43,13 +46,7 @@ public void speed_fan(){
             if (GameObject.Find("Canvas").GetComponent<GameManager>().key_move_bool == false)
             {
                 // 키 이동 여부가 false인 경우 아무 작업도 수행하지 않음
-                
-               
 
-                 
-                 
-            
-                
             }
             else
             {
@@ -59,20 +56,11 @@ public void speed_fan(){
         }
         else
         {
-      
-if(Random.Range(0,101)<8){
- Instantiate(G_obj, transform.position, Quaternion.identity); 
-}else{
-          int randomIndex = Random.Range(0, objectsToSpawn.Length);
+            int randomIndex = Random.Range(0, objectsToSpawn.Length);
             SpawnableObject randomObject = objectsToSpawn[randomIndex];
-    GameObject spawnedObject = Instantiate(randomObject.prefab, transform.position, Quaternion.identity); // 랜덤한 프리팹 생성
-Renderer renderer = spawnedObject.GetComponent<Renderer>();
-
-}
-            
-            
-            //Color randomColor = Random.Range(0, 2) == 0 ? Color.red : Color.blue; // 랜덤한 색상 선택
-            //renderer.material.color = randomColor;
+            GameObject spawnedObject =
+                Instantiate(randomObject.prefab, transform.position, Quaternion.identity); // 랜덤한 프리팹 생성
+            Renderer renderer = spawnedObject.GetComponent<Renderer>();
 
             // 생성된 오브젝트의 속성을 수정하거나 설정할 수 있음
 

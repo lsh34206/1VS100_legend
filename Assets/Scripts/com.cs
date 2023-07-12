@@ -323,28 +323,37 @@ shop_exit();
 
     void Update()
     {
-//             if((currentscore+1)%10 == 0){
-// com_img.localScale=new Vector3(12f, 12f, 0.0f);
+    // if((currentscore+1)%10 == 0)
+    // {
+    //      com_img.localScale=new Vector3(12f, 12f, 0.0f);
 
-// com_hpbar.localScale=new Vector3(1.4f, 1.4f, 0.0f);
+    //      com_hpbar.localScale=new Vector3(1.4f, 1.4f, 0.0f);
 
-//     }else{
-// com_img.localScale=new Vector3(8f, 8f, 0.0f);
+    //  }
+    // else
+    // {
+    // com_img.localScale=new Vector3(8f, 8f, 0.0f);
 
-// com_hpbar.localScale=new Vector3(1f, 1f, 0.0f);
-//     }
+    // com_hpbar.localScale=new Vector3(1f, 1f, 0.0f);
+    //  }
 
+        my_at = 20;
 
+        for (int i = 0; i < GameObject.Find("Canvas").GetComponent<GameManager>().at_lv; i++)
+        {
+            my_at += (i * 2);
+        }
 
         if (curhp <= 0)
         {
             ResetHealth(); // 체력 초기화
             showQuestionMark = false; // 물음표 표시를 비활성화
             currentscore++; // 점수 증가
-            if(currentscore%5==0){
-shop_pop.SetActive(true);
-shop_visit();
-  GameObject.Find("Canvas").GetComponent<GameManager>().key_move_bool = false;
+            if(currentscore%5==0)
+            {
+            shop_pop.SetActive(true);
+            shop_visit();
+            GameObject.Find("Canvas").GetComponent<GameManager>().key_move_bool = false; 
             }
             stage_fan();
           
@@ -379,23 +388,24 @@ shop_visit();
         }
     }
 
+    public void Defense(float amount)
+    {
+        otherAnimator.SetTrigger("Defense"); // 방어 애니메이션을 재생
+        curhp -= amount; // 현재 체력 감소
+        curhp = Mathf.Clamp(curhp, 0, maxhp); // 현재 체력이 최대 체력을 넘지 않도록 제한
+    }
 
     public void Attack(float amount)
     {
-
+      audioSource.clip=audioClip;
+      audioSource.Play();
+      otherAnimator.SetTrigger("Attack"); // 공격 애니메이션을 재생
       
-              audioSource.clip=audioClip;
-            audioSource.Play();
-        otherAnimator.SetTrigger("Attack"); // 공격 애니메이션을 재생
-        curhp -= amount; // 현재 체력 감소
-        curhp = Mathf.Clamp(curhp, 0, maxhp); // 현재 체력이 최대 체력을 넘지 않도록 제한
-
-    GameObject dmg_inst = Instantiate(dmg_txt_pre) as GameObject;
-dmg_inst.transform.SetParent(bumo_obj.transform, false);
-Instantiate(dmg_txt_pre);
-        
-
-
-
+      curhp -= amount; // 현재 체력 감소
+      curhp = Mathf.Clamp(curhp, 0, maxhp); // 현재 체력이 최대 체력을 넘지 않도록 제한
+ 
+      GameObject dmg_inst = Instantiate(dmg_txt_pre) as GameObject;
+      dmg_inst.transform.SetParent(bumo_obj.transform, false);
+      Instantiate(dmg_txt_pre);
     }
 }
