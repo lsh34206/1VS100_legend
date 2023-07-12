@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
         public bool bobble_lv=false;
           public bool respon_lv=false;
             public bool slow_lv=false;
+            public float spon_speed=2f;
+            public float move_speed=5f;
 
                   
 

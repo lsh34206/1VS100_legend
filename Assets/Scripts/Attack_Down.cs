@@ -6,110 +6,102 @@ public class Attack_Down : MonoBehaviour
 {
     private com comScript;
     private user userScript;
-    private TimerBar timerScript;
+
 
     private bool isInsideBox = false;
+    
     private bool BoxCenter = false;
 
     private float moveSpeed = 20f;
-    public float wait_time = 3f;
-    private float minus_time = 0f;
-    public void time_down_func()
-    {
-        for (int i = 0; i <= GameObject.Find("Center").GetComponent<TimerBar>().time_down_count; i += 5)
-        {
-            if (wait_time >= 0.5f|| moveSpeed>=3.5f || GameObject.Find("Spawner").GetComponent<spawner>().currentCoolTime<= 0.25f)
-            {
-                wait_time-= 0.2f;
-            }
-            else
-            {
-                
-            }
-        }
-    }
+
+    public int aim_lv;
+ 
     private void Start()
     {
-        time_down_func();
+  
         comScript = FindObjectOfType<com>();
         userScript = FindObjectOfType<user>();
-        timerScript = FindObjectOfType<TimerBar>();
-        wait_time = 3f;
+       
     }
 
 
-    private void waiting()
+void OnTriggerEnter2D(Collider2D other) 
     {
-        Destroy(gameObject);
-        userScript.DefenseFail(10);
+        isInsideBox=true;
+        if(other.gameObject.name=="perfect_col"){
+            aim_lv=1;
+        }
+        
+        if(other.gameObject.name=="good_col"){
+   aim_lv=2;
+   
+        }
+        
+        if(other.gameObject.name=="ok_col"){
+   aim_lv=3;
+    
+        }
+        
+        if(other.gameObject.name=="fail_col"){
+   aim_lv=4;
+     
+        }
+        
+    
+    
+       
+          
+    
+}
 
-        GameObject.Find("Canvas").GetComponent<GameManager>().key_move_bool = true;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
+void OnTriggerExit2D(Collider2D other) 
     {
-        if (collision.CompareTag("Box"))
-        {
-            isInsideBox = true;
-        }
-        else if (collision.CompareTag("Center"))
-        {
-            GameObject.Find("Canvas").GetComponent<GameManager>().key_move_bool = false;
-            Invoke("waiting", wait_time - minus_time);
-        }
-    }
+      
+        isInsideBox=false;
+      
+    //  if(other.gameObject.name=="perfect_col"){
+            
+    //     }else if(other.gameObject.name=="good_col_back"){
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Box"))
-        {
-            isInsideBox = false;
-        }
-        else if (collision.CompareTag("Center"))
-        {
-            BoxCenter = false;
-        }
-    }
+    //     }else if(other.gameObject.name=="ok_col_back"){
+
+    //     }else if(other.gameObject.name=="fail_col_back"){
+
+    //     }
+}
+
 
     private void Update()
     {
-        if (GameObject.Find("Canvas").GetComponent<GameManager>().slow_lv)
-        {
-            wait_time =2f;
-        }
-        Collider2D itemCollider = GetComponent<Collider2D>();
-        Collider2D boxCollider = GameObject.FindGameObjectWithTag("Box").GetComponent<Collider2D>();
-
-        if (GameObject.Find("Canvas").GetComponent<GameManager>().key_move_bool == false)
-        {
-
-        }
-        else
-        {
-            Vector3 newPosition = transform.position + Vector3.right * moveSpeed * Time.deltaTime;
+        moveSpeed = GameObject.Find("Canvas").GetComponent<GameManager>().move_speed;
+      Vector3 newPosition = transform.position + Vector3.right * moveSpeed * Time.deltaTime;
             transform.position = newPosition;
-        }
 
-        if (isInsideBox && Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            GameObject.Find("Canvas").GetComponent<GameManager>().key_move_bool = true;
+        if (Input.GetKeyDown(KeyCode.DownArrow)==true&&isInsideBox==true) {
+           Destroy(gameObject);
+           if(aim_lv==1){
+            
+            GameObject.Find("Com").GetComponent<com>().pf_txt();
+             comScript.Attack(20*3);
+           }else if(aim_lv==2){
+            
+            GameObject.Find("Com").GetComponent<com>().good_txt();
+             comScript.Attack(20*2);
+           }else if(aim_lv==3){
+            
+            GameObject.Find("Com").GetComponent<com>().ok_txt();
+             comScript.Attack(20);
+           }else if(aim_lv==4){
+            
+            GameObject.Find("Com").GetComponent<com>().fail_txt();
+           }
+           
+            
+        }else if(isInsideBox==true && (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.UpArrow))){
+            // do{
 
-            if (boxCollider.bounds.Contains(itemCollider.bounds.min) && boxCollider.bounds.Contains(itemCollider.bounds.max))
-            {
-                comScript.Attack(GameObject.Find("Com").GetComponent<com>().my_at);
-                Destroy(gameObject);
-                timerScript.OnDestroy();
-            }
-        }
-        else if (isInsideBox && (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.UpArrow)))
-        {
-            GameObject.Find("Canvas").GetComponent<GameManager>().key_move_bool = true;
-
-            if (boxCollider.bounds.Contains(itemCollider.bounds.min) && boxCollider.bounds.Contains(itemCollider.bounds.max))
-            {
-                Destroy(gameObject);
-                timerScript.OnDestroy();
-            }
+            // }while(Input.GetKeyDown(KeyCode.DownArrow)==false||isInsideBox==true)
+            Destroy(gameObject);
         }
     }
 }

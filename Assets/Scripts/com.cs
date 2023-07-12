@@ -99,6 +99,37 @@ boss_text.text="";
 ResetHealth();
     
 }
+public GameObject fan_pf;
+public GameObject fan_fail;
+public GameObject fan_ok;
+public GameObject fan_good;
+public Transform fan_pos;
+
+public void fail_txt(){
+    GameObject temp = Instantiate(fan_fail);
+        temp.transform.SetParent(fan_pos);
+    Instantiate(fan_fail,fan_pos.position,fan_pos.rotation);
+}
+
+public void pf_txt(){
+      GameObject temp = Instantiate(fan_pf);
+        temp.transform.SetParent(fan_pos);
+    Instantiate(fan_pf,fan_pos.position,fan_pos.rotation);
+}
+
+public void ok_txt(){
+      GameObject temp = Instantiate(fan_ok);
+        temp.transform.SetParent(fan_pos);
+    Instantiate(fan_ok,fan_pos.position,fan_pos.rotation);
+}
+
+
+public void good_txt(){
+      GameObject temp = Instantiate(fan_good);
+        temp.transform.SetParent(fan_pos);
+    Instantiate(fan_good,fan_pos.position,fan_pos.rotation);
+}
+
 public GameObject shop_pop;
 public Text skill_1;
 public Text skill_2;
@@ -399,7 +430,7 @@ shop_exit();
             audioSource.clip=audioClip_die;
             audioSource.Play();
             G_text.text = G.ToString();
-           GameObject.Find("Center").GetComponent<TimerBar>().next_stage();
+         
    
             UpdateScoreText(); // 점수 텍스트 업데이트
         }

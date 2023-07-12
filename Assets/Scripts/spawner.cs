@@ -18,7 +18,8 @@ public class spawner : MonoBehaviour
 
     private void Start()
     {
-        currentCoolTime = 0.1f;
+        currentCoolTime = GameObject.Find("Canvas").GetComponent<GameManager>().spon_speed;
+      
         coolTime = currentCoolTime;
         timer = coolTime;
     }

@@ -6,118 +6,89 @@ public class Attack_Up : MonoBehaviour
 {
     private com comScript;
     private user userScript;
-    private TimerBar timerScript;
 
-    private bool isInsideBox = false; // 상자 안에 있는지 여부
-    private bool BoxCenter = false; // 상자 중앙에 있는지 여부
 
-    private float moveSpeed = 20f;// 이동 속도
-    private float wait_time = 3f; // 대기 시간
-    private float minus_time = 0f; // 시간 감소
-    public void time_down_func()
-    {
-        for (int i = 0; i <= GameObject.Find("Center").GetComponent<TimerBar>().time_down_count; i += 5)
-        {
-            if (wait_time >= 0.5f|| moveSpeed>=3.5f || GameObject.Find("Spawner").GetComponent<spawner>().currentCoolTime<= 0.25f)
-            {
-                wait_time-= 0.2f;
-            }
-            else
-            {
-                
-            }
-          
+   public bool isInsideBox = false;
+    private bool BoxCenter = false;
 
-            
-        }
-    }
+    private float moveSpeed = 20f;
+ 
+    public int aim_lv;
+ 
     private void Start()
     {
-
-        time_down_func();
+  
         comScript = FindObjectOfType<com>();
         userScript = FindObjectOfType<user>();
-        timerScript = FindObjectOfType<TimerBar>();
+       
     }
 
-    private void waiting()
+
+void OnTriggerEnter2D(Collider2D other) 
     {
-        Destroy(gameObject);
-        userScript.DefenseFail(10);
+        isInsideBox=true;
+   if(other.gameObject.name=="perfect_col"){
+            aim_lv=1;
+        }else if(other.gameObject.name=="good_col_back"){
+   aim_lv=2;
+   
+        }else if(other.gameObject.name=="ok_col_back"){
+   aim_lv=3;
+    
+        }else if(other.gameObject.name=="fail_col_back"){
+   aim_lv=4;
+     
+        }
+    
+       
+          
+    
+}
 
-        // 키 이동 여부를 true로 설정하여 대기 종료
-        GameObject.Find("Canvas").GetComponent<GameManager>().key_move_bool = true;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
+void OnTriggerExit2D(Collider2D other) 
     {
-        if (collision.CompareTag("Box"))
-        {
-            isInsideBox = true; // 상자 안에 들어감
-        }
-        else if (collision.CompareTag("Center"))
-        {
-            // 키 이동 여부를 false로 설정하여 대기 시작
-            GameObject.Find("Canvas").GetComponent<GameManager>().key_move_bool = false;
-            Invoke("waiting", wait_time - minus_time); // 지정된 대기 시간 이후에 waiting 함수 호출
-        }
-    }
+      
+        isInsideBox=false;
+     if(other.gameObject.name=="perfect_col"){
+            
+        }else if(other.gameObject.name=="good_col_back"){
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Box"))
-        {
-            isInsideBox = false; // 상자에서 나옴
+        }else if(other.gameObject.name=="ok_col_back"){
+
+        }else if(other.gameObject.name=="fail_col_back"){
+
         }
-        else if (collision.CompareTag("Center"))
-        {
-            BoxCenter = false; // 중앙에서 나옴
-        }
-         Destroy(gameObject);
-    }
+}
+
+
+
 
     private void Update()
     {
-        if (GameObject.Find("Canvas").GetComponent<GameManager>().slow_lv)
-        {
-            wait_time =2f;
-        }
-        Collider2D itemCollider = GetComponent<Collider2D>();
-        Collider2D boxCollider = GameObject.FindGameObjectWithTag("Box").GetComponent<Collider2D>();
-
-        if (GameObject.Find("Canvas").GetComponent<GameManager>().key_move_bool == false)
-        {
-            // 오브젝트가 상자 안에 있으므로 이동을 멈춤
-            // 오브젝트가 상자 안에 있을 때 추가적인 코드를 넣을 수 있음
-        }
-        else
-        {
-            // 오브젝트가 상자 안에 없으므로 왼쪽에서 오른쪽으로 일정한 속도로 이동
-            Vector3 newPosition = transform.position + Vector3.right * moveSpeed * Time.deltaTime;
+          moveSpeed = GameObject.Find("Canvas").GetComponent<GameManager>().move_speed;
+  Vector3 newPosition = transform.position + Vector3.right * moveSpeed * Time.deltaTime;
             transform.position = newPosition;
-        }
 
-        if (isInsideBox && Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            GameObject.Find("Canvas").GetComponent<GameManager>().key_move_bool = true;
-
-            if (boxCollider.bounds.Contains(itemCollider.bounds.min) && boxCollider.bounds.Contains(itemCollider.bounds.max))
-            {
-                comScript.Attack(25);
-
-                Destroy(gameObject);
-                timerScript.OnDestroy();
-            }
-        }
-        else if (isInsideBox && (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow)))
-        {
-            GameObject.Find("Canvas").GetComponent<GameManager>().key_move_bool = true;
-
-            if (boxCollider.bounds.Contains(itemCollider.bounds.min) && boxCollider.bounds.Contains(itemCollider.bounds.max))
-            {
-                Destroy(gameObject);
-                timerScript.OnDestroy();
-            }
+                   if (Input.GetKeyDown(KeyCode.UpArrow)==true&&isInsideBox==true) {
+           Destroy(gameObject);
+            if(aim_lv==1){
+            
+            GameObject.Find("Com").GetComponent<com>().pf_txt();
+             comScript.Attack(20*3);
+           }else if(aim_lv==2){
+            
+            GameObject.Find("Com").GetComponent<com>().good_txt();
+             comScript.Attack(20*2);
+           }else if(aim_lv==3){
+            
+            GameObject.Find("Com").GetComponent<com>().ok_txt();
+             comScript.Attack(20);
+           }else if(aim_lv==4){
+            
+            GameObject.Find("Com").GetComponent<com>().fail_txt();
+           }
+        }else if(isInsideBox==true && (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.DownArrow))){
+            Destroy(gameObject);
         }
     }
 }
