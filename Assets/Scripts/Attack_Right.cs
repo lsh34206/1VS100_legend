@@ -75,6 +75,10 @@ public class Attack_Right : MonoBehaviour
 
     private void Update()
     {
+        if (GameObject.Find("Canvas").GetComponent<GameManager>().slow_lv)
+        {
+            wait_time =2f;
+        }
         Collider2D itemCollider = GetComponent<Collider2D>();
         Collider2D boxCollider = GameObject.FindGameObjectWithTag("Box").GetComponent<Collider2D>();
 

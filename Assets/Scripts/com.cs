@@ -113,6 +113,20 @@ public AudioSource zun_music;
 
 
 
+public Image skill_img_1;
+public Image skill_img_2;
+public Image skill_img_3;
+
+public Sprite at;
+public Sprite respon;
+
+public Sprite all_hp;
+public Sprite big_hp;
+public Sprite gold;
+public Sprite slow;
+
+public Sprite def;
+
 
 public void shop_exit(){
      shop_music.Stop();
@@ -136,94 +150,116 @@ shop_pop.SetActive(true);
    skill_1.text="";
                  skill_1.text="공격력 증가 lv"+GameObject.Find("Canvas").GetComponent<GameManager>().at_lv+"->lv"+(GameObject.Find("Canvas").GetComponent<GameManager>().at_lv+1).ToString();
 skill_1.text+="";
+skill_img_1.sprite = at;
         }else if(skill_code_1=="hp"){
                skill_1.text="";
-                 skill_1.text="최대 체력 증가 lv"+GameObject.Find("Canvas").GetComponent<GameManager>().hp_lv+"->lv"+(GameObject.Find("Canvas").GetComponent<GameManager>().hp_lv+1).ToString();
+                 skill_1.text="최대 체력 증가+(전체 회복) lv"+GameObject.Find("Canvas").GetComponent<GameManager>().hp_lv+"->lv"+(GameObject.Find("Canvas").GetComponent<GameManager>().hp_lv+1).ToString();
 skill_1.text+="";
+skill_img_1.sprite = all_hp;
         }else if(skill_code_1=="def"){
               skill_1.text="";
                skill_1.text="다음판 보호막 1회";
 skill_1.text+="";
+skill_img_1.sprite = def;
         }else if(skill_code_1=="big_hp"){
               skill_1.text="";
                skill_1.text="구급상자";
 skill_1.text+="";
+skill_img_1.sprite =big_hp;
         }else if(skill_code_1=="slow"){
               skill_1.text="";
                skill_1.text="다음판 스피드 다운";
+               skill_img_1.sprite = slow;
 skill_1.text+="";
         }else if(skill_code_1=="gold"){
               skill_1.text="";
                skill_1.text="골드 상자 (500골드~10000골드)";
 skill_1.text+="";
+skill_img_1.sprite =gold;
         }else if(skill_code_1=="respon"){
               skill_1.text="";
                skill_1.text="반피로 부활 1회";
 skill_1.text+="";
+skill_img_1.sprite =respon;
         }
 
 
 
-               if(skill_code_2=="at"){
-   skill_2.text="";
-                 skill_2.text="공격력 증가 lv"+GameObject.Find("Canvas").GetComponent<GameManager>().at_lv+"->lv"+(GameObject.Find("Canvas").GetComponent<GameManager>().at_lv+1).ToString();
-skill_2.text+="";
+
+
+        if(skill_code_2=="at"){
+            skill_2.text="";
+            skill_2.text="공격력 증가 lv"+GameObject.Find("Canvas").GetComponent<GameManager>().at_lv+"->lv"+(GameObject.Find("Canvas").GetComponent<GameManager>().at_lv+1).ToString();
+            skill_2.text+="";
+            skill_img_2.sprite = at;
         }else if(skill_code_2=="hp"){
-               skill_2.text="";
-                 skill_2.text="최대 체력 증가 lv"+GameObject.Find("Canvas").GetComponent<GameManager>().hp_lv+"->lv"+(GameObject.Find("Canvas").GetComponent<GameManager>().hp_lv+1).ToString();
-skill_2.text+="";
+            skill_2.text="";
+            skill_2.text="최대 체력 증가+(전체 회복) lv"+GameObject.Find("Canvas").GetComponent<GameManager>().hp_lv+"->lv"+(GameObject.Find("Canvas").GetComponent<GameManager>().hp_lv+1).ToString();
+            skill_2.text+="";
+            skill_img_2.sprite = all_hp;
         }else if(skill_code_2=="def"){
-              skill_2.text="";
-               skill_2.text="다음판 보호막 1회";
-skill_2.text+="";
+            skill_2.text="";
+            skill_2.text="다음판 보호막 1회";
+            skill_2.text+="";
+            skill_img_2.sprite = def;
         }else if(skill_code_2=="big_hp"){
-              skill_2.text="";
-               skill_2.text="구급상자";
-skill_2.text+="";
+            skill_2.text="";
+            skill_2.text="구급상자";
+            skill_2.text+="";
+            skill_img_2.sprite =big_hp;
         }else if(skill_code_2=="slow"){
-              skill_2.text="";
-               skill_2.text="다음판 스피드 다운";
-skill_2.text+="";
+            skill_2.text="";
+            skill_2.text="다음판 스피드 다운";
+            skill_img_2.sprite = slow;
+            skill_2.text+="";
         }else if(skill_code_2=="gold"){
-              skill_2.text="";
-               skill_2.text="골드 상자 (500골드~10000골드)";
-skill_2.text+="";
+            skill_2.text="";
+            skill_2.text="골드 상자 (500골드~10000골드)";
+            skill_2.text+="";
+            skill_img_2.sprite =gold;
         }else if(skill_code_2=="respon"){
-              skill_2.text="";
-               skill_2.text="반피로 부활 1회";
-skill_2.text+="";
+            skill_2.text="";
+            skill_2.text="반피로 부활 1회";
+            skill_2.text+="";
+            skill_img_2.sprite =respon;
         }
-
-
-
-               if(skill_code_3=="at"){
-   skill_3.text="";
-                 skill_3.text="공격력 증가 lv"+GameObject.Find("Canvas").GetComponent<GameManager>().at_lv+"->lv"+(GameObject.Find("Canvas").GetComponent<GameManager>().at_lv+1).ToString();
-skill_3.text+="";
+        
+        
+        if(skill_code_3=="at"){
+            skill_3.text="";
+            skill_3.text="공격력 증가 lv"+GameObject.Find("Canvas").GetComponent<GameManager>().at_lv+"->lv"+(GameObject.Find("Canvas").GetComponent<GameManager>().at_lv+1).ToString();
+            skill_3.text+="";
+            skill_img_3.sprite = at;
         }else if(skill_code_3=="hp"){
-               skill_3.text="";
-                 skill_3.text="최대 체력 증가 lv"+GameObject.Find("Canvas").GetComponent<GameManager>().hp_lv+"->lv"+(GameObject.Find("Canvas").GetComponent<GameManager>().hp_lv+1).ToString();
-skill_3.text+="";
+            skill_3.text="";
+            skill_3.text="최대 체력 증가+(전체 회복) lv"+GameObject.Find("Canvas").GetComponent<GameManager>().hp_lv+"->lv"+(GameObject.Find("Canvas").GetComponent<GameManager>().hp_lv+1).ToString();
+            skill_3.text+="";
+            skill_img_3.sprite = all_hp;
         }else if(skill_code_3=="def"){
-              skill_3.text="";
-               skill_3.text="다음판 보호막 1회";
-skill_3.text+="";
+            skill_3.text="";
+            skill_3.text="다음판 보호막 1회";
+            skill_3.text+="";
+            skill_img_3.sprite = def;
         }else if(skill_code_3=="big_hp"){
-              skill_3.text="";
-               skill_3.text="구급상자";
-skill_3.text+="";
+            skill_3.text="";
+            skill_3.text="구급상자";
+            skill_3.text+="";
+            skill_img_3.sprite =big_hp;
         }else if(skill_code_3=="slow"){
-              skill_3.text="";
-               skill_3.text="다음판 스피드 다운";
-skill_3.text+="";
+            skill_3.text="";
+            skill_3.text="다음판 스피드 다운";
+            skill_img_3.sprite = slow;
+            skill_3.text+="";
         }else if(skill_code_3=="gold"){
-              skill_3.text="";
-               skill_3.text="골드 상자 (500골드~10000골드)";
-skill_3.text+="";
+            skill_3.text="";
+            skill_3.text="골드 상자 (500골드~10000골드)";
+            skill_3.text+="";
+            skill_img_3.sprite =gold;
         }else if(skill_code_3=="respon"){
-              skill_3.text="";
-               skill_3.text="반피로 부활 1회";
-skill_3.text+="";
+            skill_3.text="";
+            skill_3.text="반피로 부활 1회";
+            skill_3.text+="";
+            skill_img_3.sprite =respon;
         }
 
 
@@ -235,7 +271,9 @@ public void skill_1_click(){
 GameObject.Find("Canvas").GetComponent<GameManager>().at_lv++;
         }else if(skill_code_1=="hp"){
              GameObject.Find("Canvas").GetComponent<GameManager>().hp_lv++;
-        }else if(skill_code_1=="def"){
+             
+          
+     }else if(skill_code_1=="def"){
            GameObject.Find("Canvas").GetComponent<GameManager>().bobble_lv=true;
         }else if(skill_code_1=="big_hp"){
            GameObject.Find("User").GetComponent<user>().curhp=GameObject.Find("User").GetComponent<user>().maxhp;
@@ -337,12 +375,12 @@ shop_exit();
     // com_hpbar.localScale=new Vector3(1f, 1f, 0.0f);
     //  }
 
-        my_at = 20;
-
-        for (int i = 0; i < GameObject.Find("Canvas").GetComponent<GameManager>().at_lv; i++)
+    my_at = 20;
+        for (int i = 1; i <= GameObject.Find("Canvas").GetComponent<GameManager>().at_lv;i++)
         {
             my_at += (i * 2);
         }
+        
 
         if (curhp <= 0)
         {
@@ -388,8 +426,12 @@ shop_exit();
         }
     }
 
+
+    public AudioClip audiotang;
     public void Defense(float amount)
     {
+        audioSource.clip=audiotang;
+        audioSource.Play();
         otherAnimator.SetTrigger("Defense"); // 방어 애니메이션을 재생
         curhp -= amount; // 현재 체력 감소
         curhp = Mathf.Clamp(curhp, 0, maxhp); // 현재 체력이 최대 체력을 넘지 않도록 제한
@@ -400,7 +442,7 @@ shop_exit();
       audioSource.clip=audioClip;
       audioSource.Play();
       otherAnimator.SetTrigger("Attack"); // 공격 애니메이션을 재생
-      
+      Instantiate(dmg_txt_pre,dmg_txt_pos.position,dmg_txt_pos.rotation);
       curhp -= amount; // 현재 체력 감소
       curhp = Mathf.Clamp(curhp, 0, maxhp); // 현재 체력이 최대 체력을 넘지 않도록 제한
  

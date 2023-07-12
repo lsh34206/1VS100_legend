@@ -58,8 +58,7 @@ public class spawner : MonoBehaviour
         {
             int randomIndex = Random.Range(0, objectsToSpawn.Length);
             SpawnableObject randomObject = objectsToSpawn[randomIndex];
-            GameObject spawnedObject =
-                Instantiate(randomObject.prefab, transform.position, Quaternion.identity); // 랜덤한 프리팹 생성
+            GameObject spawnedObject = Instantiate(randomObject.prefab, transform.position, Quaternion.identity); // 랜덤한 프리팹 생성
             Renderer renderer = spawnedObject.GetComponent<Renderer>();
 
             // 생성된 오브젝트의 속성을 수정하거나 설정할 수 있음

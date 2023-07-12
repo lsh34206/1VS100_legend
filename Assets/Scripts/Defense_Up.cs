@@ -76,6 +76,10 @@ public class Defense_Up : MonoBehaviour
 
     private void Update()
     {
+        if (GameObject.Find("Canvas").GetComponent<GameManager>().slow_lv)
+        {
+            wait_time =2f;
+        }
         Collider2D itemCollider = GetComponent<Collider2D>();
         Collider2D boxCollider = GameObject.FindGameObjectWithTag("Box").GetComponent<Collider2D>();
 
@@ -95,6 +99,7 @@ public class Defense_Up : MonoBehaviour
 
             if (boxCollider.bounds.Contains(itemCollider.bounds.min) && boxCollider.bounds.Contains(itemCollider.bounds.max))
             {
+          
                 comScript.Defense(0);
                 
                 Destroy(gameObject);

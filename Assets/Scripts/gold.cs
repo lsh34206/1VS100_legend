@@ -16,6 +16,7 @@ public class gold : MonoBehaviour
     private float minus_time = 0f; // �ð� ����
     public void time_down_func()
     {
+        
         for (int i = 0; i <= GameObject.Find("Center").GetComponent<TimerBar>().time_down_count; i += 5)
         {
             if (wait_time >= 0.5f|| moveSpeed>=3.5f || GameObject.Find("Spawner").GetComponent<spawner>().currentCoolTime<= 0.25f)
@@ -31,6 +32,10 @@ public class gold : MonoBehaviour
             
         }
     }
+
+  
+      
+    
     private void Start()
     {
         
@@ -78,6 +83,12 @@ public class gold : MonoBehaviour
 
     private void Update()
     {
+        
+        if (GameObject.Find("Canvas").GetComponent<GameManager>().slow_lv)
+        {
+            wait_time =2f;
+        }
+       
         Collider2D itemCollider = GetComponent<Collider2D>();
         Collider2D boxCollider = GameObject.FindGameObjectWithTag("Box").GetComponent<Collider2D>();
 

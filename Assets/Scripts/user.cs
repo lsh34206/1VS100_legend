@@ -16,6 +16,7 @@ public class user : MonoBehaviour
    public AudioSource audioSource;
 
     public AudioClip audioClip;
+    public AudioClip audioClip_tang;
 
     
         public AudioClip audioClip_die;
