@@ -68,7 +68,14 @@ void OnTriggerExit2D(Collider2D other)
 
 
     private void Update()
-    {
+    {   if (GameObject.Find("Canvas").GetComponent<GameManager>().slow_lv)
+        {
+            GameObject.Find("Canvas").GetComponent<GameManager>().move_speed = 4f;
+        }
+        else
+        {
+            GameObject.Find("Canvas").GetComponent<GameManager>().move_speed+=0.00001f;
+        }
         moveSpeed = GameObject.Find("Canvas").GetComponent<GameManager>().move_speed;
   Vector3 newPosition = transform.position + Vector3.right * moveSpeed * Time.deltaTime;
             transform.position = newPosition;

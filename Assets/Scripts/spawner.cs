@@ -11,62 +11,35 @@ public class spawner : MonoBehaviour
     }
 
     public SpawnableObject[] objectsToSpawn; // 생성할 오브젝트 배열
-    public float currentCoolTime = 0.25f; // 현재 쿨타임
+    public float currentCoolTime = 0.1f; // 현재 쿨타임
 
     private float coolTime; // 쿨타임
     private float timer; // 타이머
 
     private void Start()
     {
-        currentCoolTime = GameObject.Find("Canvas").GetComponent<GameManager>().spon_speed;
-      
-        coolTime = currentCoolTime;
-        timer = coolTime;
+    
+        StartCoroutine( "spon_coru", 0.8f );
     }
-
-    public void speed_fan()
+    IEnumerator spon_coru(float delayTime)
     {
-        if (GameObject.Find("Canvas").GetComponent<GameManager>().slow_lv = true)
-        {
-            currentCoolTime = 0.5f;
-            coolTime = currentCoolTime;
-            timer = coolTime;
-        }
-        else
-        {
-            currentCoolTime = 0.5f;
-            coolTime = currentCoolTime;
-            timer = coolTime;
-        }
+        int randomIndex = Random.Range(0, objectsToSpawn.Length);
+        SpawnableObject randomObject = objectsToSpawn[randomIndex];
+        GameObject spawnedObject = Instantiate(randomObject.prefab, transform.position, Quaternion.identity); // 랜덤한 프리팹 생성
+        Renderer renderer = spawnedObject.GetComponent<Renderer>();
+        yield return new WaitForSeconds(delayTime);
+        StartCoroutine( "spon_coru", 0.8f );
     }
+  
 
     private void Update()
     {
-        if (timer > 0f)
-        {
-            if (GameObject.Find("Canvas").GetComponent<GameManager>().key_move_bool == false)
-            {
-                // 키 이동 여부가 false인 경우 아무 작업도 수행하지 않음
-
-            }
-            else
-            {
-                timer -= Time.deltaTime;
-            }
-
-        }
-        else
-        {
-            int randomIndex = Random.Range(0, objectsToSpawn.Length);
-            SpawnableObject randomObject = objectsToSpawn[randomIndex];
-            GameObject spawnedObject = Instantiate(randomObject.prefab, transform.position, Quaternion.identity); // 랜덤한 프리팹 생성
-            Renderer renderer = spawnedObject.GetComponent<Renderer>();
-
-            // 생성된 오브젝트의 속성을 수정하거나 설정할 수 있음
-
-            timer = coolTime;
-        }
+  
+     
     }
+    
+    
+
 }
 
 

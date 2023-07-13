@@ -94,8 +94,8 @@ GameObject.Find("Canvas").GetComponent<GameManager>().respon_lv=false;
 
     public void DefenseFail(float amount)
     {
-        if(GameObject.Find("Canvas").GetComponent<GameManager>().bobble_lv){
-            GameObject.Find("Canvas").GetComponent<GameManager>().bobble_lv=false;
+        if(GameObject.Find("Canvas").GetComponent<GameManager>().bubble_lv){
+            GameObject.Find("Canvas").GetComponent<GameManager>().bubble_lv=false;
         }else{
                  audioSource.clip=audioClip;
       audioSource.Play();
