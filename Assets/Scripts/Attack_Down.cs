@@ -47,6 +47,20 @@ void OnTriggerEnter2D(Collider2D other)
      
         }
         
+        if(other.gameObject.name=="x_col"){
+            aim_lv=5;
+     
+        }else if (other.gameObject.name == "x_col")
+        {
+    
+            
+         
+
+            GameObject.Find("User").GetComponent<user>().curhp--;
+            GameObject.Find("User").GetComponent<user>().barctrl();
+       
+        }
+        
     
     
        
@@ -59,15 +73,7 @@ void OnTriggerExit2D(Collider2D other)
       
         isInsideBox=false;
       
-    //  if(other.gameObject.name=="perfect_col"){
-            
-    //     }else if(other.gameObject.name=="good_col_back"){
 
-    //     }else if(other.gameObject.name=="ok_col_back"){
-
-    //     }else if(other.gameObject.name=="fail_col_back"){
-
-    //     }
 }
 
 
@@ -75,7 +81,8 @@ void OnTriggerExit2D(Collider2D other)
     {
         if (GameObject.Find("Canvas").GetComponent<GameManager>().slow_lv)
         {
-            GameObject.Find("Canvas").GetComponent<GameManager>().move_speed = 4f;
+            GameObject.Find("Canvas").GetComponent<GameManager>().move_speed = 7f;
+            GameObject.Find("Canvas").GetComponent<GameManager>().slow_lv = false;
         }
         else
         {

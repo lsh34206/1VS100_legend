@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class user : MonoBehaviour
 {
+  
     public Slider user_hp; // 사용자의 체력을 표시하는 슬라이더
     private Animator animator; // 애니메이터
     public Animator otherAnimator; // 애니메이터
@@ -18,7 +20,7 @@ public class user : MonoBehaviour
     public AudioClip audioClip;
     public AudioClip audioClip_tang;
 
-    
+    private scenes_manager scenes;
         public AudioClip audioClip_die;
     private void Awake()
     {
@@ -33,6 +35,7 @@ public void barctrl(){
     {
         user_hp.value = (float)curhp / (float)maxhp; // 현재 체력을 슬라이더에 반영
         //Time.timeScale = 0.5f;
+        scenes = GameObject.Find("User").GetComponent<scenes_manager>();
     }
 bool die_bool = false;
     void Update()
@@ -52,7 +55,8 @@ GameObject.Find("Canvas").GetComponent<GameManager>().respon_lv=false;
 
             }else{
                 
-                     string savedData = comScript.scoretext.text; // com 스크립트에서 텍스트 가져오기
+                   
+                      string savedData = comScript.scoretext.text; // com 스크립트에서 텍스트 가져오기
 
             GameObject bestTextObject = GameObject.Find("BestText"); // "BestText" 오브젝트 찾기
             if (bestTextObject != null)
@@ -65,7 +69,7 @@ GameObject.Find("Canvas").GetComponent<GameManager>().respon_lv=false;
    die_bool=false;
                     }else{
                            
-  Time.timeScale = 0;
+
    
 
                 }
@@ -76,7 +80,8 @@ GameObject.Find("Canvas").GetComponent<GameManager>().respon_lv=false;
             comScript.ResetHealth(); // com 스크립트의 체력 초기화
             comScript.showQuestionMark = false; // com 스크립트에서 물음표 표시를 비활성화
             comScript.UpdateScoreText(); // com 스크립트의 점수 텍스트 업데이트
-
+            
+            scenes.to_over(); 
           
         }
         }
@@ -92,8 +97,10 @@ GameObject.Find("Canvas").GetComponent<GameManager>().respon_lv=false;
         user_hp.value = (float)curhp / (float)maxhp; // 현재 체력을 슬라이더에 반영
     }
 
+
     public void DefenseFail(float amount)
     {
+       
         if(GameObject.Find("Canvas").GetComponent<GameManager>().bubble_lv){
             GameObject.Find("Canvas").GetComponent<GameManager>().bubble_lv=false;
         }else{
@@ -104,6 +111,7 @@ GameObject.Find("Canvas").GetComponent<GameManager>().respon_lv=false;
         curhp = Mathf.Clamp(curhp, 0, maxhp); // 현재 체력이 최대 체력을 넘지 않도록 제한
         }
 
+    
     }
 
     }

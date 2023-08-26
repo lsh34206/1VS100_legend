@@ -15,7 +15,7 @@ public class Movement : MonoBehaviour
         currentSpeed = normalSpeed;
     }
 
-    void FixedUpdate()
+    void Update()
     {   // 자동으로 왼쪽에서 오른쪽으로 이동
         Vector3 movement = new Vector3(-currentSpeed, 0f, 0f);
         transform.Translate(movement * Time.deltaTime);
